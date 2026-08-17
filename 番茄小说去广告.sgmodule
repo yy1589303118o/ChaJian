@@ -1,0 +1,52 @@
+#!name=番茄小说去广告
+#!desc=番茄小说 iOS 广告拦截 + JSON 响应清理 + BoxJs 控制
+#!author=Fanqie
+
+[Rule]
+
+# ==============================
+# QUIC
+# ==============================
+
+AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT
+
+
+# ==============================
+# 字节广告/广告 SDK
+# ==============================
+
+DOMAIN-KEYWORD,ad-sign,REJECT
+DOMAIN-KEYWORD,snssdk,REJECT
+DOMAIN-KEYWORD,pstatp,REJECT
+DOMAIN-KEYWORD,gecko,REJECT
+
+DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT
+
+
+# ==============================
+# 明确的广告/统计上报
+# ==============================
+
+DOMAIN,mon.toutiaocloud.com,REJECT
+DOMAIN,mon.toutiaocloud.net,REJECT
+
+
+# ==============================
+# HTTPDNS
+# ==============================
+
+DOMAIN-KEYWORD,tnc,REJECT
+
+
+# ==============================
+# 番茄广告响应处理
+# ==============================
+
+[Script]
+
+番茄小说去广告 = type=http-response,pattern=^https?:\/\/.*?\.(fqnovel|dragonread)\.com\/(novel|reading|api|v\d+|ad|service)(?:[\/?].*)?$,requires-body=1,script-path=fanqie.js,timeout=15
+
+
+[MITM]
+
+hostname = %APPEND% *.fqnovel.com, *.dragonread.com
