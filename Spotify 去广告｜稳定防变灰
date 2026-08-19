@@ -1,0 +1,66 @@
+#!name=Spotify 去广告｜稳定防变灰
+#!desc=Spotify 精准去广告 + 首页净化 + iPad ArtistView 修复｜优先保证播放稳定
+#!category=Spotify
+
+[Rule]
+
+# =========================================================
+# Spotify 广告域名
+# 只拦明确广告域名，不碰音频 CDN / 播放 / 鉴权
+# =========================================================
+
+DOMAIN-SUFFIX,ads.spotify.com,REJECT
+DOMAIN-SUFFIX,adstudio.spotify.com,REJECT
+DOMAIN-SUFFIX,gads.spotify.com,REJECT
+
+
+[URL Rewrite]
+
+# =========================================================
+# 明确的广告请求
+# =========================================================
+
+^https?:\/\/(?:ads|adclick|gads)\.spotify\.com(?:\/.*)?$ - reject
+
+# Spotify spclient 明确广告接口
+# 不包含 play-queue / playback / audio / metadata
+^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/(?:ads|ad-logic|pendragon)(?:\/.*)?$ - reject-dict
+
+
+# =========================================================
+# iPhone ArtistView → iPad 布局
+# 保留你原来的功能
+# =========================================================
+
+^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/artistview\/v1\/artist\/(.*)&platform=iphone$ https://spclient.wg.spotify.com/artistview/v1/artist/$1&platform=ipad header
+
+
+[Script]
+
+# =========================================================
+# Spotify 首页 / 个性化数据净化
+#
+# 本地 JS：
+# Spotify_remove_ads_local.js
+#
+# 只处理：
+# bootstrap
+# user-customization-service
+# home-feed-view
+# user-attribute
+#
+# 不处理播放队列、音频、DRM、鉴权
+# =========================================================
+
+Spotify首页净化 = type=http-response,pattern=^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/(?:bootstrap|user-customization-service|home-feed-view|user-attribute)(?:[\/?].*)?$,script-path=file:///Spotify_remove_ads_local.js,requires-body=true,timeout=10,engine=webview
+
+
+[MITM]
+
+# 只解密真正需要响应脚本处理的 Spotify API
+# 使用 %APPEND%，避免覆盖你主配置的其他 MITM
+hostname = %APPEND% *.spclient.spotify.com, spclient.wg.spotify.com, ads.spotify.com, adstudio.spotify.com, gads.spotify.com
+
+# 2.2.90 已支持 HTTP/2 MITM
+# 如果你的主配置已经开启 HTTP/2，可以保留
+h2 = true
