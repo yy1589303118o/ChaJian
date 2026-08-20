@@ -1,6 +1,4 @@
-# Stash 完整分流配置
-# 规则顺序：广告 → AI → Apple → 国内 → 游戏 → 国际 → FINAL
-# 节点未提供，因此使用 DIRECT 作为占位；接入节点后把节点加入 ♻️ 自选即可。
+# Stash 完整通用分流配置
 mode: rule
 log-level: info
 ipv6: true
@@ -10,43 +8,69 @@ proxies:
     type: direct
 
 proxy-groups:
-  - name: 🚫 广告拦截
+  # 1. 核心选择组：自动拉取所有节点，用于全局/自定义选择
+  - name: ♻️ 自选
+    type: select
+    include-all: true
+    # 过滤掉名为 DIRECT 和 REJECT 的非真正节点，避免重复
+    filter: "^(?!(DIRECT|REJECT)).*"
+
+  # 2. 自动选优组：自动选择延迟最低的节点
+  - name: ⚡ 自动最优
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    include-all: true
+    filter: "^(?!(DIRECT|REJECT)).*"
+
+  # 3. 业务功能分组
+  - name: 🤖 AI节点
     type: select
     proxies:
-      - REJECT
-  - name: ☁️ 国内直连
-    type: select
-    proxies:
+      - ♻️ 自选
+      - ⚡ 自动最优
       - DIRECT
+
   - name: 🍎 苹果服务
     type: select
     proxies:
       - DIRECT
       - ♻️ 自选
-  - name: 🤖 AI节点
-    type: select
-    proxies:
-      - ♻️ 自选
-      - DIRECT
+      - ⚡ 自动最优
+
   - name: 🎮 游戏服务
     type: select
     proxies:
       - ♻️ 自选
+      - ⚡ 自动最优
       - DIRECT
+
   - name: 🔘 防止封控
     type: select
     proxies:
       - ♻️ 自选
+      - ⚡ 自动最优
       - DIRECT
+
   - name: Ⓜ️ 微软服务
     type: select
     proxies:
-      - ♻️ 自选
       - DIRECT
-  - name: ♻️ 自选
+      - ♻️ 自选
+      - ⚡ 自动最优
+
+  - name: 🚫 广告拦截
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+
+  - name: ☁️ 国内直连
     type: select
     proxies:
       - DIRECT
+      - ♻️ 自选
 
 rule-providers:
   Advertising:
@@ -357,7 +381,6 @@ rule-providers:
     interval: 86400
 
 rules:
-
   # 广告
   - RULE-SET,Advertising,🚫 广告拦截
   - RULE-SET,Hijacking,🚫 广告拦截
