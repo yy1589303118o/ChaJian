@@ -1,4 +1,4 @@
-name: Deploy
+name: 'Deploy'
 desc: Stash 完整通用分流配置
 mode: rule
 log-level: info
@@ -7,14 +7,14 @@ ipv6: true
 
 proxy-groups:
   # 1. 核心选择组：自动拉取所有节点，用于全局/自定义选择
-  - name: ♻️ 自选
+  - name: '♻️ 自选'
     type: select
     include-all: true
     # 过滤掉名为 DIRECT 和 REJECT 的非真正节点，避免重复
     filter: "^(?!(DIRECT|REJECT)).*"
 
   # 2. 自动选优组：自动选择延迟最低的节点
-  - name: ⚡ 自动最优
+  - name: '⚡ 自动最优'
     type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
@@ -23,31 +23,31 @@ proxy-groups:
     filter: "^(?!(DIRECT|REJECT)).*"
 
   # 3. 业务功能分组
-  - name: 🤖 AI节点
+  - name: '🤖 AI节点'
     type: select
     proxies:
-      - ♻️ 自选
-      - ⚡ 自动最优
-      - DIRECT
+      - '♻️ 自选'
+      - '⚡ 自动最优m'
+      - 'DIRECT'
 
-  - name: 🍎 苹果服务
+  - name: '🍎 苹果服务'
     type: select
     proxies:
-      - DIRECT
-      - ♻️ 自选
-      - ⚡ 自动最优
+      - 'DIRECT'
+      - '♻️ 自选'
+      - '⚡ 自动最优'
 
-  - name: 🎮 游戏服务
+  - name: '🎮 游戏服务'
     type: select
     proxies:
-      - ♻️ 自选
-      - ⚡ 自动最优
-      - DIRECT
+      - '♻️ 自选'
+      - '⚡ 自动最优'
+      - 'DIRECT'
 
-  - name: 🔘 防止封控
+  - name: '🔘 防止封控'
     type: select
     proxies:
-      - ♻️ 自选
+      - '♻️ 自选'
       - ⚡ 自动最优
       - DIRECT
 
