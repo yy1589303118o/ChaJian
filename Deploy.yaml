@@ -1,4 +1,5 @@
-# Stash 完整通用分流配置
+#!Stash 完整通用分流配置
+#!name: Deploy
 mode: rule
 log-level: info
 ipv6: true
