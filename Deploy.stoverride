@@ -27,7 +27,7 @@ proxy-groups:
     type: select
     proxies:
       - '♻️ 自选'
-      - '⚡ 自动最优m'
+      - '⚡ 自动最优'
       - 'DIRECT'
 
   - name: '🍎 苹果服务'
@@ -48,27 +48,25 @@ proxy-groups:
     type: select
     proxies:
       - '♻️ 自选'
-      - ⚡ 自动最优
-      - DIRECT
+      - '⚡ 自动最优'
+      - DIRECT'
 
-  - name: Ⓜ️ 微软服务
+  - name: Ⓜ️ 微软服务'
     type: select
     proxies:
-      - DIRECT
-      - ♻️ 自选
-      - ⚡ 自动最优
+      - 'DIRECT'
+      - '♻️ 自选'
+      - '⚡ 自动最优'
 
-  - name: 🚫 广告拦截
+  - name: '🚫 广告拦截'
     type: select
     proxies:
-      - REJECT
-      - DIRECT
+      - 'REJECT'
 
-  - name: ☁️ 国内直连
+  - name: '☁️ 国内直连'
     type: select
     proxies:
-      - DIRECT
-      - ♻️ 自选
+      - 'DIRECT'
 
 rule-providers:
   Advertising:
