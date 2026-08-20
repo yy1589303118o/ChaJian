@@ -1,4 +1,4 @@
-name: Self-use diversion
+Name: Self-use diversion
 desc: 'Supplement BiuBiu'
 author: 'OpenAI'
 date: '2026-08-21'
@@ -130,6 +130,11 @@ rules:
   - RULE-SET,Gemini,BiuBiu
   - RULE-SET,Copilot,BiuBiu
 
+  # 2. Apple
+  # 不新增宽泛 Apple 规则，保留你现有 85 条中的 Apple 分流：
+  # developer.apple.com / TestFlight / iTunes / apps.apple.com 等 → BiuBiu
+  # mzstatic.com / icloud.com / apple.com / apple-cloudkit.com → DIRECT
+
   # 3. 游戏
   - RULE-SET,SteamCN,DIRECT
   - RULE-SET,Steam,BiuBiu
@@ -152,3 +157,5 @@ rules:
 
   # 5. LAN → DIRECT
   - RULE-SET,LAN,DIRECT
+
+  # 6. 原配置中的广告、Apple、国内、GEOIP、MATCH 继续保留
