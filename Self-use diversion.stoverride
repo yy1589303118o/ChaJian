@@ -1,8 +1,5 @@
-name: 自用分流
-desc: 
-  保留原有 85 条规则；新增规则集会插入原 rules 前方。
-  广告拦截继续交给已启用的 AdvertisingLite.stoverride。
-  AI / 游戏 / 国际服务走 BiuBiu；国内保持 DIRECT。
+name: Self-use diversion
+desc: 'Supplement BiuBiu'
 author: 'OpenAI'
 date: '2026-08-21'
 
