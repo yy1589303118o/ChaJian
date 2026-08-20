@@ -1,0 +1,430 @@
+# Stash 完整分流配置
+# 规则顺序：广告 → AI → Apple → 国内 → 游戏 → 国际 → FINAL
+# 节点未提供，因此使用 DIRECT 作为占位；接入节点后把节点加入 ♻️ 自选即可。
+mode: rule
+log-level: info
+ipv6: true
+
+proxies:
+  - name: DIRECT
+    type: direct
+
+proxy-groups:
+  - name: 🚫 广告拦截
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+  - name: ☁️ 国内直连
+    type: select
+    proxies:
+      - DIRECT
+  - name: 🍎 苹果服务
+    type: select
+    proxies:
+      - DIRECT
+      - ♻️ 自选
+  - name: 🤖 AI节点
+    type: select
+    proxies:
+      - ♻️ 自选
+      - DIRECT
+  - name: 🎮 游戏服务
+    type: select
+    proxies:
+      - ♻️ 自选
+      - DIRECT
+  - name: 🔘 防止封控
+    type: select
+    proxies:
+      - ♻️ 自选
+      - DIRECT
+  - name: Ⓜ️ 微软服务
+    type: select
+    proxies:
+      - ♻️ 自选
+      - DIRECT
+  - name: ♻️ 自选
+    type: select
+    proxies:
+      - DIRECT
+
+rule-providers:
+  Advertising:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Advertising/Advertising.yaml
+    path: ./rules/Advertising.yaml
+    interval: 86400
+  Hijacking:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Hijacking/Hijacking.yaml
+    path: ./rules/Hijacking.yaml
+    interval: 86400
+  Privacy:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Privacy/Privacy.yaml
+    path: ./rules/Privacy.yaml
+    interval: 86400
+  OpenAI:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml
+    path: ./rules/OpenAI.yaml
+    interval: 86400
+  Claude:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml
+    path: ./rules/Claude.yaml
+    interval: 86400
+  Anthropic:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Anthropic/Anthropic.yaml
+    path: ./rules/Anthropic.yaml
+    interval: 86400
+  Gemini:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Gemini/Gemini.yaml
+    path: ./rules/Gemini.yaml
+    interval: 86400
+  Copilot:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.yaml
+    path: ./rules/Copilot.yaml
+    interval: 86400
+  Apple:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.yaml
+    path: ./rules/Apple.yaml
+    interval: 86400
+  AppStore:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppStore/AppStore.yaml
+    path: ./rules/AppStore.yaml
+    interval: 86400
+  TestFlight:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TestFlight/TestFlight.yaml
+    path: ./rules/TestFlight.yaml
+    interval: 86400
+  iCloud:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/iCloud/iCloud.yaml
+    path: ./rules/iCloud.yaml
+    interval: 86400
+  自用分流:
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/%E8%87%AA%E7%94%A8%E5%88%86%E6%B5%81.list
+    path: ./rules/自用分流.text
+    interval: 86400
+  China:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/China/China.yaml
+    path: ./rules/China.yaml
+    interval: 86400
+  ChinaIPs:
+    behavior: ipcidr
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaIPs/ChinaIPs_IP.yaml
+    path: ./rules/ChinaIPs.yaml
+    interval: 86400
+  LAN:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml
+    path: ./rules/LAN.yaml
+    interval: 86400
+  WeChat:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/WeChat/WeChat.yaml
+    path: ./rules/WeChat.yaml
+    interval: 86400
+  Sina:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Sina/Sina.yaml
+    path: ./rules/Sina.yaml
+    interval: 86400
+  BiliBili:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BiliBili/BiliBili.yaml
+    path: ./rules/BiliBili.yaml
+    interval: 86400
+  NetEaseMusic:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/NetEaseMusic/NetEaseMusic.yaml
+    path: ./rules/NetEaseMusic.yaml
+    interval: 86400
+  Baidu:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Baidu/Baidu.yaml
+    path: ./rules/Baidu.yaml
+    interval: 86400
+  DouBan:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/DouBan/DouBan.yaml
+    path: ./rules/DouBan.yaml
+    interval: 86400
+  Zhihu:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Zhihu/Zhihu.yaml
+    path: ./rules/Zhihu.yaml
+    interval: 86400
+  XiaoHongShu:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/XiaoHongShu/XiaoHongShu.yaml
+    path: ./rules/XiaoHongShu.yaml
+    interval: 86400
+  DouYin:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/DouYin/DouYin.yaml
+    path: ./rules/DouYin.yaml
+    interval: 86400
+  Douyu:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Douyu/Douyu.yaml
+    path: ./rules/Douyu.yaml
+    interval: 86400
+  Weibo:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Weibo/Weibo.yaml
+    path: ./rules/Weibo.yaml
+    interval: 86400
+  Game:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/Game.yaml
+    path: ./rules/Game.yaml
+    interval: 86400
+  Netflix:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix.yaml
+    path: ./rules/Netflix.yaml
+    interval: 86400
+  Disney:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Disney/Disney.yaml
+    path: ./rules/Disney.yaml
+    interval: 86400
+  HBO:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/HBO/HBO.yaml
+    path: ./rules/HBO.yaml
+    interval: 86400
+  Amazon:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Amazon/Amazon.yaml
+    path: ./rules/Amazon.yaml
+    interval: 86400
+  AmazonPrimeVideo:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AmazonPrimeVideo/AmazonPrimeVideo.yaml
+    path: ./rules/AmazonPrimeVideo.yaml
+    interval: 86400
+  TikTok:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.yaml
+    path: ./rules/TikTok.yaml
+    interval: 86400
+  Discord:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Discord/Discord.yaml
+    path: ./rules/Discord.yaml
+    interval: 86400
+  PayPal:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PayPal/PayPal.yaml
+    path: ./rules/PayPal.yaml
+    interval: 86400
+  Cryptocurrency:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Cryptocurrency/Cryptocurrency.yaml
+    path: ./rules/Cryptocurrency.yaml
+    interval: 86400
+  Microsoft:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml
+    path: ./rules/Microsoft.yaml
+    interval: 86400
+  Spotify:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Spotify/Spotify.yaml
+    path: ./rules/Spotify.yaml
+    interval: 86400
+  YouTube:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.yaml
+    path: ./rules/YouTube.yaml
+    interval: 86400
+  YouTubeMusic:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTubeMusic/YouTubeMusic.yaml
+    path: ./rules/YouTubeMusic.yaml
+    interval: 86400
+  Telegram:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml
+    path: ./rules/Telegram.yaml
+    interval: 86400
+  Instagram:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Instagram/Instagram.yaml
+    path: ./rules/Instagram.yaml
+    interval: 86400
+  Twitter:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Twitter/Twitter.yaml
+    path: ./rules/Twitter.yaml
+    interval: 86400
+  Twitch:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Twitch/Twitch.yaml
+    path: ./rules/Twitch.yaml
+    interval: 86400
+  Facebook:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Facebook/Facebook.yaml
+    path: ./rules/Facebook.yaml
+    interval: 86400
+  GitHub:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitHub/GitHub.yaml
+    path: ./rules/GitHub.yaml
+    interval: 86400
+  Google:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.yaml
+    path: ./rules/Google.yaml
+    interval: 86400
+  Threads:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Threads/Threads.yaml
+    path: ./rules/Threads.yaml
+    interval: 86400
+  Reddit:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Reddit/Reddit.yaml
+    path: ./rules/Reddit.yaml
+    interval: 86400
+  Global:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Global/Global_Classical.yaml
+    path: ./rules/Global.yaml
+    interval: 86400
+
+rules:
+
+  # 广告
+  - RULE-SET,Advertising,🚫 广告拦截
+  - RULE-SET,Hijacking,🚫 广告拦截
+  - RULE-SET,Privacy,🚫 广告拦截
+
+  # AI
+  - RULE-SET,OpenAI,🤖 AI节点
+  - RULE-SET,Claude,🤖 AI节点
+  - RULE-SET,Anthropic,🤖 AI节点
+  - RULE-SET,Gemini,🤖 AI节点
+  - RULE-SET,Copilot,🤖 AI节点
+
+  # Apple
+  - RULE-SET,Apple,🍎 苹果服务
+  - RULE-SET,AppStore,🍎 苹果服务
+  - RULE-SET,TestFlight,🍎 苹果服务
+  - RULE-SET,iCloud,🍎 苹果服务
+
+  # 国内
+  - RULE-SET,自用分流,☁️ 国内直连
+  - RULE-SET,China,☁️ 国内直连
+  - RULE-SET,ChinaIPs,☁️ 国内直连,no-resolve
+  - RULE-SET,LAN,☁️ 国内直连
+  - RULE-SET,WeChat,☁️ 国内直连
+  - RULE-SET,Sina,☁️ 国内直连
+  - RULE-SET,BiliBili,☁️ 国内直连
+  - RULE-SET,NetEaseMusic,☁️ 国内直连
+  - RULE-SET,Baidu,☁️ 国内直连
+  - RULE-SET,DouBan,☁️ 国内直连
+  - RULE-SET,Zhihu,☁️ 国内直连
+  - RULE-SET,XiaoHongShu,☁️ 国内直连
+  - RULE-SET,DouYin,☁️ 国内直连
+  - RULE-SET,Douyu,☁️ 国内直连
+  - RULE-SET,Weibo,☁️ 国内直连
+
+  # 游戏
+  - RULE-SET,Game,🎮 游戏服务
+
+  # 防止封控
+  - RULE-SET,Netflix,🔘 防止封控
+  - RULE-SET,Disney,🔘 防止封控
+  - RULE-SET,HBO,🔘 防止封控
+  - RULE-SET,Amazon,🔘 防止封控
+  - RULE-SET,AmazonPrimeVideo,🔘 防止封控
+  - RULE-SET,TikTok,🔘 防止封控
+  - RULE-SET,Discord,🔘 防止封控
+  - RULE-SET,PayPal,🔘 防止封控
+  - RULE-SET,Cryptocurrency,🔘 防止封控
+
+  # Microsoft
+  - RULE-SET,Microsoft,Ⓜ️ 微软服务
+
+  # 国际
+  - RULE-SET,Spotify,♻️ 自选
+  - RULE-SET,YouTube,♻️ 自选
+  - RULE-SET,YouTubeMusic,♻️ 自选
+  - RULE-SET,Telegram,♻️ 自选
+  - RULE-SET,Instagram,♻️ 自选
+  - RULE-SET,Twitter,♻️ 自选
+  - RULE-SET,Twitch,♻️ 自选
+  - RULE-SET,Facebook,♻️ 自选
+  - RULE-SET,GitHub,♻️ 自选
+  - RULE-SET,Google,♻️ 自选
+  - RULE-SET,Threads,♻️ 自选
+  - RULE-SET,Reddit,♻️ 自选
+  - RULE-SET,Global,♻️ 自选
+
+  - GEOIP,CN,☁️ 国内直连
+  - MATCH,♻️ 自选
