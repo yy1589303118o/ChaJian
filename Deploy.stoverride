@@ -1,12 +1,9 @@
-#!Stash 完整通用分流配置
-#!name: Deploy
+name: Deploy
+desc: Stash 完整通用分流配置
 mode: rule
 log-level: info
 ipv6: true
 
-proxies:
-  - name: DIRECT
-    type: direct
 
 proxy-groups:
   # 1. 核心选择组：自动拉取所有节点，用于全局/自定义选择
