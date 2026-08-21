@@ -17,23 +17,19 @@ http:
     - "gads.spotify.com"
   
   url-rewrite:
-    # 明确的广告请求拒绝
     - ^https?:\/\/(?:ads|adclick|gads)\.spotify\.com(?:\/.*)?$ - reject
-    # iPhone ArtistView → iPad 布局
     - ^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/artistview\/v1\/artist\/(.*)&platform=iphone https://spclient.wg.spotify.com/artistview/v1/artist/$1&platform=ipad header
 
-  # 明确广告接口 (使用 mock 方式返回空 dict 拦截)
   mock-as-code:
     - pattern: ^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/(?:ads|ad-logic|pendragon)(?:\/.*)?$
       code: 200
       content: "{}"
 
-  # 3. 首页净化本地脚本响应
+  # 3. 首页净化脚本响应（已替换为你最新的远程 JS 链接）
   script:
     - name: Spotify首页净化
       match: ^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/(?:bootstrap|user-customization-service|home-feed-view|user-attribute)(?:[\/?].*)?$
       type: response
       requires-body: true
       timeout: 10
-      # 请确保 Stash 的 Local-Script 路径下存在该 JS 文件
-      file: Spotify_remove_ads_local.js
+      url: https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/Spotify_remove_ads_local.js
