@@ -13,6 +13,7 @@ DOMAIN-KEYWORD,snssdk,REJECT
 DOMAIN-KEYWORD,pstatp,REJECT
 DOMAIN-KEYWORD,gecko,REJECT
 DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT
+DOMAIN,cddp-track.aligames.com,REJECT
 
 # 统计
 DOMAIN,mon.toutiaocloud.com,REJECT
