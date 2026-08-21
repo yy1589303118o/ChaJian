@@ -1,34 +1,31 @@
 name: 番茄小说去广告
-desc: 番茄小说 iOS 广告拦截 + 响应清理
-author: Fanqie
+desc: 番茄小说 iOS 广告拦截 + 响应清理 + BoxJs 控制
 
 # 1. 规则拦截
 rules:
+  # QUIC
   - AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT
+  # 广告 SDK
   - DOMAIN-KEYWORD,ad-sign,REJECT
   - DOMAIN-KEYWORD,snssdk,REJECT
   - DOMAIN-KEYWORD,pstatp,REJECT
   - DOMAIN-KEYWORD,gecko,REJECT
   - DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT
+  # 统计
   - DOMAIN,mon.toutiaocloud.com,REJECT
   - DOMAIN,mon.toutiaocloud.net,REJECT
+  # HTTPDNS
   - DOMAIN-KEYWORD,tnc,REJECT
 
-# 2. HTTP 解密与脚本匹配
+# 2. HTTP 重写与脚本
 http:
   mitm:
     - "*.fqnovel.com"
     - "*.dragonread.com"
-
   script:
-    - match: ^https?:\/\/.*?\.(fqnovel|dragonread)\.com\/(novel|reading|api|v\d+|ad|service)(?:[\/?].*)?$
-      name: 番茄小说去广告
+    - name: 番茄小说去广告
+      match: ^https?:\/\/.*?\.(fqnovel|dragonread)\.com\/(novel|reading|api|v\d+|ad|service)(?:[\/?].*)?$
       type: response
       requires-body: true
       timeout: 15
-
-# 3. 对应官方文档规范：脚本提供者
-script-providers:
-  番茄小说去广告:
-    url: https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/fanqie.js
-    interval: 86400
+      url: https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/fanqie.js
