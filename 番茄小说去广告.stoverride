@@ -4,24 +4,17 @@ author: Fanqie
 
 # 1. 域名与协议拦截规则
 rules:
-  # 禁用 QUIC (UDP 443)，强制走 HTTP/HTTPS 保证 MitM 解密生效
   - AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT
-
-  # 广告 SDK 拦截
   - DOMAIN-KEYWORD,ad-sign,REJECT
   - DOMAIN-KEYWORD,snssdk,REJECT
   - DOMAIN-KEYWORD,pstatp,REJECT
   - DOMAIN-KEYWORD,gecko,REJECT
   - DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT
-
-  # 统计分析域名拦截
   - DOMAIN,mon.toutiaocloud.com,REJECT
   - DOMAIN,mon.toutiaocloud.net,REJECT
-
-  # HTTPDNS 拦截
   - DOMAIN-KEYWORD,tnc,REJECT
 
-# 2. HTTP 解密与响应修改脚本
+# 2. HTTP 解密与响应修改脚本（已替换为你最新的远程 JS 链接）
 http:
   mitm:
     - "*.fqnovel.com"
@@ -33,4 +26,4 @@ http:
       type: response
       requires-body: true
       timeout: 15
-      url: https://raw.githubusercontent.com/yy1589303118o/-/refs/heads/main/fanqie.js
+      url: https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/fanqie.js
