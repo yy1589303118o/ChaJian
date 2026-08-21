@@ -24,7 +24,7 @@ DOMAIN-KEYWORD,tnc,REJECT
 
 [Script]
 
-番茄小说去广告 = type=http-response,pattern=^https?:\/\/.*?\.(fqnovel|dragonread)\.com\/(novel|reading|api|v\d+|ad|service)(?:[\/?].*)?$,requires-body=1,timeout=15,script-path=https://raw.githubusercontent.com/yy1589303118o/-/refs/heads/main/fanqie.js
+番茄小说去广告 = type=http-response,pattern=^https?:\/\/.*?\.(fqnovel|dragonread)\.com\/(novel|reading|api|v\d+|ad|service)(?:[\/?].*)?$,requires-body=1,timeout=15,script-path=https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/fanqie.js
 
 
 [MITM]
