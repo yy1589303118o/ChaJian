@@ -12,6 +12,7 @@ rules:
   - DOMAIN-KEYWORD,gecko,REJECT
   - DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT
   # 统计
+  - DOMAIN,cddp-track.aligames.com,REJECT
   - DOMAIN,mon.toutiaocloud.com,REJECT
   - DOMAIN,mon.toutiaocloud.net,REJECT
   # HTTPDNS
