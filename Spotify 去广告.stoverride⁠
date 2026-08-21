@@ -1,6 +1,5 @@
 name: Spotify 去广告｜稳定防变灰
 desc: Spotify 精准去广告 + 首页净化 + iPad ArtistView 修复｜优先保证播放稳定
-category: Spotify
 
 # 1. 规则拦截
 rules:
@@ -8,14 +7,14 @@ rules:
   - DOMAIN-SUFFIX,adstudio.spotify.com,REJECT
   - DOMAIN-SUFFIX,gads.spotify.com,REJECT
 
-# 2. HTTP 重写与脚本匹配
+# 2. HTTP 重写、Mock 与脚本响应
 http:
   mitm:
     - "*.spclient.spotify.com"
     - "spclient.wg.spotify.com"
     - "ads.spotify.com"
     - "gads.spotify.com"
-  
+
   url-rewrite:
     - ^https?:\/\/(?:ads|adclick|gads)\.spotify\.com(?:\/.*)?$ - reject
     - ^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/artistview\/v1\/artist\/(.*)&platform=iphone https://spclient.wg.spotify.com/artistview/v1/artist/$1&platform=ipad header
@@ -26,14 +25,9 @@ http:
       content: "{}"
 
   script:
-    - match: ^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/(?:bootstrap|user-customization-service|home-feed-view|user-attribute)(?:[\/?].*)?$
-      name: Spotify首页净化
+    - name: Spotify首页净化
+      match: ^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/(?:bootstrap|user-customization-service|home-feed-view|user-attribute)(?:[\/?].*)?$
       type: response
       requires-body: true
       timeout: 10
-
-# 3. 对应官方文档规范：脚本提供者（必须放在这里）
-script-providers:
-  Spotify首页净化:
-    url: https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/Spotify_remove_ads_local.js
-    interval: 86400
+      url: https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/Spotify_remove_ads_local.js
