@@ -1,7 +1,7 @@
-# 番茄小说去广告覆写配置
 name: 番茄小说去广告 Pro
 desc: 番茄小说 iOS 去广告：广告域名 + 广告资源 + 响应清理
 
+# 域名与规则匹配
 rules:
   # 放行听书音频流（TTS）
   - DOMAIN-KEYWORD,-tts.fqnovelvod.com,DIRECT
@@ -40,38 +40,62 @@ rules:
   # 6. 拦截 QUIC（UDP 443）
   - AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT
 
-url-rewrite:
-  - ^https?:\/\/.+\.pangolin-sdk-toutiao\.com\/api\/ad\/union\/sdk\/(get_ads|stats|settings)\/ - reject
-  - ^https?:\/\/.+\.pglstatp-toutiao\.com\/.+\/toutiao\.mp4 - reject
-  - ^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(obj|img)\/(ad-app-package|ad)\/.+ - reject
-  - ^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(obj|img)\/web\.business\.image\/.+ - reject
-  - ^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/obj\/ad-pattern\/renderer - reject
-  - ^https?:\/\/gurd\.snssdk\.com\/src\/server\/v3\/package - reject
-  - ^https?:\/\/.+\.byteimg\.com\/tos-cn-i-1yzifmftcy\/(.+)-jpeg\.jpeg - reject
-  - ^https?:\/\/.+\.pstatp\.com\/obj\/mosaic-legacy\/.+\?from\=ad - reject
-  - ^https?:\/\/.+\.pstatp\.com\/bytecom\/resource\/track_log\/src\/.+ - reject
-  - ^https?:\/\/.+\.snssdk\.com\/video\/play\/1\/toutiao\/.+\/mp4 - reject
-  - ^https?:\/\/.+\.snssdk\.com\/api\/ad\/.+ - reject
-  - ^http:\/\/.+\.byteimg\.com\/ad-app-package - reject
-  - ^http:\/\/.+\.byteimg\.com\/web\.business\.image - reject
-  - ^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(ad-app-package|ad)\/.+ - reject
-  - ^https?:\/\/adim\.pinduoduo\.com\/.+\/toutiao\?.+ - reject
-  - ^https?:\/\/.+novelapp\.fqnovelvod\.com\/.+\/video\/.+ - reject
+# HTTP 重写、脚本与 MITM 必须全部收纳在 http 节点下
+http:
+  mitm:
+    - "*.fqnovel.com"
+    - "*.dragonread.com"
+    - "*.pangolin-sdk-toutiao.com"
+    - "*.pstatp.com"
+    - "*.pglstatp-toutiao.com"
+    - "*.snssdk.com"
+    - "*.byteimg.com"
 
-script:
-  - match: ^https?:\/\/.+\.(fqnovel|dragonread)\.com\/(?:novel|reading|api|v\d+|ad|service)(?:[\/?].*)?$
-    name: 番茄小说去广告
-    type: response
-    require-body: true
-    timeout: 15
-    argument:
-      url: https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/fanqie.js
+  # URL 重写拦截（对应原 url-rewrite，采用 url-regex 格式）
+  url-rewrite:
+    - match: ^https?:\/\/.+\.pangolin-sdk-toutiao\.com\/api\/ad\/union\/sdk\/(get_ads|stats|settings)\/
+      reject: true
+    - match: ^https?:\/\/.+\.pglstatp-toutiao\.com\/.+\/toutiao\.mp4
+      reject: true
+    - match: ^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(obj|img)\/(ad-app-package|ad)\/.+
+      reject: true
+    - match: ^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(obj|img)\/web\.business\.image\/.+
+      reject: true
+    - match: ^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/obj\/ad-pattern\/renderer
+      reject: true
+    - match: ^https?:\/\/gurd\.snssdk\.com\/src\/server\/v3\/package
+      reject: true
+    - match: ^https?:\/\/.+\.byteimg\.com\/tos-cn-i-1yzifmftcy\/(.+)-jpeg\.jpeg
+      reject: true
+    - match: ^https?:\/\/.+\.pstatp\.com\/obj\/mosaic-legacy\/.+\?from\=ad
+      reject: true
+    - match: ^https?:\/\/.+\.pstatp\.com\/bytecom\/resource\/track_log\/src\/.+
+      reject: true
+    - match: ^https?:\/\/.+\.snssdk\.com\/video\/play\/1\/toutiao\/.+\/mp4
+      reject: true
+    - match: ^https?:\/\/.+\.snssdk\.com\/api\/ad\/.+
+      reject: true
+    - match: ^http:\/\/.+\.byteimg\.com\/ad-app-package
+      reject: true
+    - match: ^http:\/\/.+\.byteimg\.com\/web\.business\.image
+      reject: true
+    - match: ^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(ad-app-package|ad)\/.+
+      reject: true
+    - match: ^https?:\/\/adim\.pinduoduo\.com\/.+\/toutiao\?.+
+      reject: true
+    - match: ^https?:\/\/.+novelapp\.fqnovelvod\.com\/.+\/video\/.+
+      reject: true
 
-mitm:
-  - *.fqnovel.com
-  - *.dragonread.com
-  - *.pangolin-sdk-toutiao.com
-  - *.pstatp.com
-  - *.pglstatp-toutiao.com
-  - *.snssdk.com
-  - *.byteimg.com
+  # 脚本配置
+  script:
+    - match: ^https?:\/\/.+\.(fqnovel|dragonread)\.com\/(?:novel|reading|api|v\d+|ad|service)(?:[\/?].*)?$
+      name: fanqie_no_ad
+      type: response
+      require-body: true
+      timeout: 15
+
+# Stash 需要单独的 script-providers 声明远程 JS 文件地址
+script-providers:
+  fanqie_no_ad:
+    url: https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/fanqie.js
+    interval: 86400
