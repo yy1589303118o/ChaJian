@@ -2,11 +2,20 @@
  * 🍅 番茄小说 iOS 去广告
  * fanqie.js
  *
- * Shadowrocket / Loon / Surge
- * 无 BoxJs 依赖版
+ * Loon / Shadowrocket / Surge
+ * 无 BoxJs
+ *
+ * 思路：
+ * 1. 只处理 JSON 响应
+ * 2. 删除明确的广告对象
+ * 3. 删除广告列表
+ * 4. 清理广告标志
+ * 5. 清理广告 URL
+ * 6. 不碰正文文本
+ * 7. 不碰日志/统计请求
  */
 
-let body = $response.body;
+const body = $response.body;
 
 if (!body) {
     $done({});
@@ -14,207 +23,272 @@ if (!body) {
 }
 
 try {
-    const obj = JSON.parse(body);
 
-    // ==============================
+    let obj = JSON.parse(body);
+
+    // =========================================================
     // 广告字段
-    // ==============================
+    // =========================================================
 
-    const adKeys = new Set([
+    const AD_KEYS = new Set([
         "ad_info",
         "adInfo",
         "ad_data",
         "adData",
+
         "ad_config",
         "adConfig",
+
         "ad_placement",
         "adPlacement",
+
         "ad_position",
         "adPosition",
+
         "ad_cell",
         "adCell",
 
+        "ad_list",
+        "adList",
+
+        "ad_items",
+        "adItems",
+
+        "advertisement",
+        "advertisements",
+
         "banner_ad",
         "bannerAd",
+
+        "native_ad",
+        "nativeAd",
+
+        "feed_ad",
+        "feedAd",
+
         "middle_ad",
         "middleAd",
+
         "bottom_ad",
         "bottomAd",
+
         "end_ad",
         "endAd",
 
         "video_ad",
         "videoAd",
+
         "reader_ad",
         "readerAd",
-        "novel_ad_data",
-        "novelAdData",
 
-        "interstitial_ad",
-        "interstitialAd",
-        "splash_ad",
-        "splashAd",
-        "segment_ad",
-        "segmentAd",
-
-        "custom_ad",
-        "customAd",
-        "feed_ad",
-        "feedAd",
-        "native_ad",
-        "nativeAd",
-
-        "live_ad",
-        "liveAd",
-        "live_info",
-        "liveInfo",
-        "live_card",
-        "liveCard",
-        "live_component",
-        "liveComponent",
-
-        "after_video_ad",
-        "afterVideoAd",
-        "post_reward_ad",
-        "postRewardAd",
+        "chapter_ad",
+        "chapterAd",
 
         "page_ad",
         "pageAd",
+
         "next_ad",
         "nextAd",
-        "chapter_ad",
-        "chapterAd",
+
         "pop_ad",
         "popAd",
 
+        "splash_ad",
+        "splashAd",
+
+        "interstitial_ad",
+        "interstitialAd",
+
+        "reward_ad",
+        "rewardAd",
+
+        "rewarded_ad",
+        "rewardedAd",
+
         "bidding_ad",
         "biddingAd",
+
         "bidding_ad_list",
         "biddingAdList",
 
-        "reader_banner",
-        "readerBanner",
-        "bottom_banner_ad",
-        "bottomBannerAd",
+        "after_video_ad",
+        "afterVideoAd",
 
-        "ad_component",
-        "adComponent",
-        "ad_list",
-        "adList",
-        "advertisement",
-        "advertisements"
+        "post_reward_ad",
+        "postRewardAd"
     ]);
 
-    // ==============================
+
+    // =========================================================
     // 广告标志
-    // ==============================
+    // =========================================================
 
-    function cleanFlags(obj) {
+    const FLAG_KEYS = [
+        "is_ad",
+        "isAd",
 
-        if ("has_more_ineffective_ad" in obj) {
-            obj.has_more_ineffective_ad = 0;
-        }
+        "has_ad",
+        "hasAd",
 
-        if ("ad_exist" in obj) {
-            obj.ad_exist = false;
-        }
+        "ad_exist",
+        "adExist",
 
-        if ("adExist" in obj) {
-            obj.adExist = false;
-        }
+        "show_ad",
+        "showAd",
 
-        if ("show_ad" in obj) {
-            obj.show_ad = false;
-        }
+        "is_advertisement",
+        "isAdvertisement"
+    ];
 
-        if ("showAd" in obj) {
-            obj.showAd = false;
-        }
 
-        if ("is_ad" in obj) {
-            obj.is_ad = false;
-        }
+    // =========================================================
+    // 广告类型
+    // =========================================================
 
-        if ("isAd" in obj) {
-            obj.isAd = false;
-        }
+    const AD_TYPES = new Set([
+        "ad",
+        "ads",
+        "advert",
+        "advertisement",
+        "native_ad",
+        "banner_ad",
+        "feed_ad",
+        "interstitial_ad",
+        "reward_ad",
+        "rewarded_ad",
+        "video_ad"
+    ]);
 
-        if ("has_ad" in obj) {
-            obj.has_ad = false;
-        }
 
-        if ("hasAd" in obj) {
-            obj.hasAd = false;
-        }
+    // =========================================================
+    // 判断是否为广告对象
+    // =========================================================
 
-        if ("is_advertisement" in obj) {
-            obj.is_advertisement = false;
-        }
+    function isAdObject(obj) {
 
-        if ("isAdvertisement" in obj) {
-            obj.isAdvertisement = false;
-        }
-    }
-
-    // ==============================
-    // 判断广告对象
-    // ==============================
-
-    function isAdObject(item) {
-
-        if (!item || typeof item !== "object") {
+        if (!obj || typeof obj !== "object") {
             return false;
         }
 
-        // 明确广告字段
+        // 明确广告 ID
         if (
-            item.ad_info ||
-            item.adInfo ||
-            item.ad_data ||
-            item.adData ||
-            item.ad_id ||
-            item.adId
+            obj.ad_id !== undefined ||
+            obj.adId !== undefined
         ) {
             return true;
         }
 
-        // 广告标志
+        // 明确广告对象
         if (
-            item.is_ad === true ||
-            item.isAd === true ||
-            item.is_advertisement === true ||
-            item.isAdvertisement === true
+            obj.ad_info ||
+            obj.adInfo ||
+            obj.ad_data ||
+            obj.adData
+        ) {
+            return true;
+        }
+
+        // 广告 flag
+        if (
+            obj.is_ad === true ||
+            obj.isAd === true ||
+            obj.is_advertisement === true ||
+            obj.isAdvertisement === true
         ) {
             return true;
         }
 
         // 类型
         const type = String(
-            item.type ||
-            item.cell_type ||
-            item.item_type ||
-            item.data_type ||
+            obj.type ??
+            obj.cell_type ??
+            obj.item_type ??
+            obj.data_type ??
+            obj.cellType ??
             ""
         ).toLowerCase();
 
-        if (
-            type === "ad" ||
-            type === "advert" ||
-            type === "advertisement" ||
-            type === "native_ad" ||
-            type === "banner_ad" ||
-            type === "feed_ad" ||
-            type === "interstitial_ad"
-        ) {
+        if (AD_TYPES.has(type)) {
             return true;
         }
 
         return false;
     }
 
-    // ==============================
+
+    // =========================================================
+    // 判断字符串是不是广告 URL
+    // =========================================================
+
+    function isAdUrl(value) {
+
+        if (typeof value !== "string") {
+            return false;
+        }
+
+        const s = value.toLowerCase();
+
+        return (
+            s.includes("ad-sign") ||
+            s.includes("ads.toutiao") ||
+            s.includes("ad.toutiao") ||
+            s.includes("ad.doubleclick") ||
+            s.includes("googleadservices") ||
+            s.includes("snssdk") ||
+            s.includes("pstatp") ||
+            s.includes("pangolin") ||
+            s.includes("adserver")
+        );
+    }
+
+
+    // =========================================================
+    // 清除广告 flag
+    // =========================================================
+
+    function cleanFlags(obj) {
+
+        for (const key of FLAG_KEYS) {
+
+            if (
+                Object.prototype.hasOwnProperty.call(
+                    obj,
+                    key
+                )
+            ) {
+
+                // 保持字段类型
+                if (
+                    key === "is_ad" ||
+                    key === "isAd" ||
+                    key === "has_ad" ||
+                    key === "hasAd" ||
+                    key === "ad_exist" ||
+                    key === "adExist" ||
+                    key === "show_ad" ||
+                    key === "showAd" ||
+                    key === "is_advertisement" ||
+                    key === "isAdvertisement"
+                ) {
+                    obj[key] = false;
+                }
+            }
+        }
+
+        if (
+            Object.prototype.hasOwnProperty.call(
+                obj,
+                "has_more_ineffective_ad"
+            )
+        ) {
+            obj.has_more_ineffective_ad = 0;
+        }
+    }
+
+
+    // =========================================================
     // 清理数组
-    // ==============================
+    // =========================================================
 
     function cleanArray(arr, depth) {
 
@@ -226,218 +300,186 @@ try {
 
         for (const item of arr) {
 
+            // 广告对象直接删除
             if (isAdObject(item)) {
                 continue;
             }
 
-            result.push(clean(item, depth + 1));
+            // 普通对象继续递归
+            if (
+                item &&
+                typeof item === "object"
+            ) {
+                result.push(
+                    cleanObject(item, depth + 1)
+                );
+                continue;
+            }
+
+            // 字符串广告 URL 删除
+            if (isAdUrl(item)) {
+                continue;
+            }
+
+            result.push(item);
         }
 
         return result;
     }
 
-    // ==============================
-    // 核心清理
-    // ==============================
 
-    function clean(obj, depth) {
+    // =========================================================
+    // 清理对象
+    // =========================================================
 
-        if (depth > 40) {
+    function cleanObject(obj, depth) {
+
+        if (!obj || typeof obj !== "object") {
             return obj;
         }
 
-        if (obj === null || obj === undefined) {
+        // 防止异常递归
+        if (depth > 25) {
             return obj;
         }
 
-        if (Array.isArray(obj)) {
-            return cleanArray(obj, depth);
-        }
 
-        if (typeof obj !== "object") {
-            return obj;
-        }
+        // -----------------------------------------------------
+        // 第一层：删除明确广告字段
+        // -----------------------------------------------------
 
-        // ------------------------------
-        // 删除广告字段
-        // ------------------------------
+        for (const key of Object.keys(obj)) {
 
-        for (const key of adKeys) {
-
-            if (
-                Object.prototype.hasOwnProperty.call(
-                    obj,
-                    key
-                )
-            ) {
+            if (AD_KEYS.has(key)) {
                 delete obj[key];
             }
         }
 
-        // ------------------------------
-        // 清除广告标志
-        // ------------------------------
+
+        // -----------------------------------------------------
+        // 第二层：清除广告标志
+        // -----------------------------------------------------
 
         cleanFlags(obj);
 
-        // ------------------------------
-        // cell_list
-        // ------------------------------
 
-        if (Array.isArray(obj.cell_list)) {
-
-            obj.cell_list = obj.cell_list.filter(item => {
-
-                if (!item || typeof item !== "object") {
-                    return true;
-                }
-
-                if (isAdObject(item)) {
-                    return false;
-                }
-
-                const type = String(
-                    item.type ||
-                    item.cell_type ||
-                    item.item_type ||
-                    ""
-                ).toLowerCase();
-
-                return ![
-                    "ad",
-                    "advert",
-                    "advertisement",
-                    "native_ad",
-                    "banner_ad",
-                    "feed_ad"
-                ].includes(type);
-            });
-        }
-
-        // ------------------------------
-        // data
-        // ------------------------------
-
-        if (Array.isArray(obj.data)) {
-
-            obj.data = obj.data.filter(item => {
-                return !isAdObject(item);
-            });
-        }
-
-        // ------------------------------
-        // 推荐流
-        // ------------------------------
-
-        const feedKeys = [
-            "feed",
-            "feed_list",
-            "feedList",
-            "recommend",
-            "recommend_list",
-            "recommendList",
-            "recommend_data",
-            "recommendData"
-        ];
-
-        for (const key of feedKeys) {
-
-            if (Array.isArray(obj[key])) {
-
-                obj[key] = obj[key].filter(item => {
-                    return !isAdObject(item);
-                });
-            }
-        }
-
-        // ------------------------------
-        // 阅读页相关
-        // ------------------------------
-
-        const readerKeys = [
-            "reader_ad",
-            "readerAd",
-            "reader_banner",
-            "readerBanner",
-            "chapter_ad",
-            "chapterAd",
-            "page_ad",
-            "pageAd",
-            "next_ad",
-            "nextAd"
-        ];
-
-        for (const key of readerKeys) {
-            delete obj[key];
-        }
-
-        // ------------------------------
-        // 直播 / 视频
-        // ------------------------------
-
-        const liveKeys = [
-            "live_ad",
-            "liveAd",
-            "live_info",
-            "liveInfo",
-            "live_card",
-            "liveCard",
-            "live_component",
-            "liveComponent",
-            "video_ad",
-            "videoAd",
-            "after_video_ad",
-            "afterVideoAd"
-        ];
-
-        for (const key of liveKeys) {
-            delete obj[key];
-        }
-
-        // ------------------------------
-        // 深度递归
-        // ------------------------------
+        // -----------------------------------------------------
+        // 第三层：处理对象内容
+        // -----------------------------------------------------
 
         for (const key of Object.keys(obj)) {
 
             const value = obj[key];
 
+            // null
+            if (value === null) {
+                continue;
+            }
+
+
+            // Array
+            if (Array.isArray(value)) {
+
+                obj[key] = cleanArray(
+                    value,
+                    depth + 1
+                );
+
+                continue;
+            }
+
+
+            // Object
             if (
-                value &&
                 typeof value === "object"
             ) {
 
+                // 明确广告对象
                 if (isAdObject(value)) {
+
                     delete obj[key];
+
                     continue;
                 }
 
-                obj[key] = clean(
+                obj[key] = cleanObject(
                     value,
                     depth + 1
+                );
+
+                continue;
+            }
+
+
+            // 字符串 URL
+            if (
+                typeof value === "string" &&
+                isAdUrl(value)
+            ) {
+
+                delete obj[key];
+            }
+        }
+
+
+        // -----------------------------------------------------
+        // 第四层：常见推荐/广告列表
+        // -----------------------------------------------------
+
+        const LIST_KEYS = [
+            "cell_list",
+            "cellList",
+
+            "feed",
+            "feed_list",
+            "feedList",
+
+            "recommend",
+            "recommend_list",
+            "recommendList",
+
+            "recommend_data",
+            "recommendData",
+
+            "ad_list",
+            "adList"
+        ];
+
+        for (const key of LIST_KEYS) {
+
+            if (Array.isArray(obj[key])) {
+
+                obj[key] = obj[key].filter(
+                    item => !isAdObject(item)
                 );
             }
         }
 
+
         return obj;
     }
 
-    // ==============================
+
+    // =========================================================
     // 执行
-    // ==============================
+    // =========================================================
 
-    const result = clean(obj, 0);
+    obj = cleanObject(obj, 0);
 
-    body = JSON.stringify(result);
+
+    // =========================================================
+    // 输出
+    // =========================================================
 
     $done({
-        body: body
+        body: JSON.stringify(obj)
     });
+
 
 } catch (e) {
 
-    // JSON 解析失败：
-    // 原样返回，避免影响正文
+    // 非 JSON / 压缩格式 / 异常响应
+    // 不破坏原始响应
 
     $done({
         body: body
