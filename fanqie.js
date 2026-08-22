@@ -235,6 +235,7 @@ function isAdString(value) {
         s.includes("toutiao.mp4") ||
         s.includes("ad-app-package") ||
         s.includes("web.business.image") ||
+        s.includes("dig.bdurl.net")
     );
 }
 
