@@ -17,8 +17,6 @@ DOMAIN,i-lq.snssdk.com,REJECT
 DOMAIN,is.snssdk.com,REJECT
 DOMAIN,mcs.snssdk.com,REJECT
 
-DOMAIN,dig.bdurl.net,REJECT
-
 DOMAIN-KEYWORD,zijieapi,REJECT
 DOMAIN-KEYWORD,applog,REJECT
 
