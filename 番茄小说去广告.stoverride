@@ -1,9 +1,7 @@
-name: 番茄小说去广告
+# 番茄小说去广告覆写配置
+name: 番茄小说去广告 Pro
 desc: 番茄小说 iOS 去广告：广告域名 + 广告资源 + 响应清理
 
-# ============================================================
-# 规则（插入到原 rules 之前）
-# ============================================================
 rules:
   # 放行听书音频流（TTS）
   - DOMAIN-KEYWORD,-tts.fqnovelvod.com,DIRECT
@@ -42,9 +40,6 @@ rules:
   # 6. 拦截 QUIC（UDP 443）
   - AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT
 
-# ============================================================
-# URL 重写（插入到原 url-rewrite 之前）
-# ============================================================
 url-rewrite:
   - ^https?:\/\/.+\.pangolin-sdk-toutiao\.com\/api\/ad\/union\/sdk\/(get_ads|stats|settings)\/ - reject
   - ^https?:\/\/.+\.pglstatp-toutiao\.com\/.+\/toutiao\.mp4 - reject
@@ -63,28 +58,15 @@ url-rewrite:
   - ^https?:\/\/adim\.pinduoduo\.com\/.+\/toutiao\?.+ - reject
   - ^https?:\/\/.+novelapp\.fqnovelvod\.com\/.+\/video\/.+ - reject
 
-# ============================================================
-# HTTP 响应脚本（插入到原 script 之前）
-# ============================================================
 script:
   - match: ^https?:\/\/.+\.(fqnovel|dragonread)\.com\/(?:novel|reading|api|v\d+|ad|service)(?:[\/?].*)?$
     name: 番茄小说去广告
     type: response
     require-body: true
     timeout: 15
-    argument: https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/fanqie.js
+    argument:
+      url: https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/fanqie.js
 
-# ============================================================
-# 脚本提供者
-# ============================================================
-script-providers:
-  番茄小说去广告:
-    url: https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/fanqie.js
-    interval: 86400
-
-# ============================================================
-# MitM 域名（插入到原 mitm 之前）
-# ============================================================
 mitm:
   - *.fqnovel.com
   - *.dragonread.com
