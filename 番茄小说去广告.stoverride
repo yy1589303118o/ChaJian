@@ -73,8 +73,15 @@ script:
     type: response
     require-body: true
     timeout: 15
-    argument:
-      url: https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/fanqie.js
+    argument: https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/fanqie.js
+
+# ============================================================
+# 脚本提供者
+# ============================================================
+script-providers:
+  番茄小说去广告:
+    url: https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/fanqie.js
+    interval: 86400
 
 # ============================================================
 # MitM 域名（插入到原 mitm 之前）
