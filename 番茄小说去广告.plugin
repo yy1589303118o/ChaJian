@@ -1,5 +1,5 @@
 [Plugin]
-name = 番茄小说去广告
+name = 番茄小说去广告 Pro
 desc = 番茄小说 iOS 去广告：广告域名 + 广告资源 + 响应清理
 author = Fanqie / Custom
 
@@ -16,6 +16,8 @@ DOMAIN,i.snssdk.com,REJECT
 DOMAIN,i-lq.snssdk.com,REJECT
 DOMAIN,is.snssdk.com,REJECT
 DOMAIN,mcs.snssdk.com,REJECT
+
+DOMAIN,dig.bdurl.net,REJECT
 
 DOMAIN-KEYWORD,zijieapi,REJECT
 DOMAIN-KEYWORD,applog,REJECT
@@ -119,8 +121,7 @@ AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT
 # 番茄 API 响应清理
 # =========================
 
-http-response ^https?:\/\/.+\.(fqnovel|dragonread)\.com\/.+ script-path=https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/fanqie.js,requires-body=true,timeout=15,tag=番茄响应清理
-
+http-response ^https?:\/\/.+\.(fqnovel|dragonread)\.com\/(?:novel|reading|api|v\d+|ad|service)(?:[\/?].*)?$ script-path=https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/fanqie.js,requires-body=true,timeout=15,tag=番茄小说去广告
 
 [Mitm]
 
