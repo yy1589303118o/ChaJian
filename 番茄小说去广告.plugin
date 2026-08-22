@@ -1,70 +1,139 @@
-[Plugin]
-name = 番茄小说去广告
-desc = 番茄小说 iOS 广告拦截 + 响应清理
-author = Fanqie
+#!name=番茄小说去广告
+#!desc=番茄小说 iOS 广告拦截 + 字节广告SDK拦截 + Response Body 清理
+#!author=Fanqie Enhanced
+#!homepage=https://github.com/deezertidal/private
 
 [Rule]
 
-# ==============================
-# 番茄广告投放
-# ==============================
+# =========================================================
+# 番茄 / 字节广告基础域名
+# =========================================================
 
-DOMAIN,p6-ad-sign.byteimg.com,REJECT
-DOMAIN,p9-ad-sign.byteimg.com,REJECT
+DOMAIN,p6-ad-sign.byteimg.com,REJECT-DROP
+DOMAIN,p9-ad-sign.byteimg.com,REJECT-DROP
 
-DOMAIN-KEYWORD,ad-sign,REJECT
+DOMAIN,i.snssdk.com,REJECT-DROP
+DOMAIN,i-lq.snssdk.com,REJECT-DROP
+DOMAIN,is.snssdk.com,REJECT-DROP
+DOMAIN,mcs.snssdk.com,REJECT-DROP
 
-# ==============================
-# 字节广告 / SDK
-# ==============================
+DOMAIN,security-lq.snssdk.com,REJECT-DROP
 
-DOMAIN,i.snssdk.com,REJECT
-DOMAIN,i-lq.snssdk.com,REJECT
-DOMAIN,is.snssdk.com,REJECT
+DOMAIN,tnc3-alisc1.snssdk.com,REJECT-DROP
+DOMAIN,tnc3-aliec2.snssdk.com,REJECT-DROP
 
-DOMAIN,mcs.snssdk.com,REJECT
-DOMAIN,security-lq.snssdk.com,REJECT
+DOMAIN,dig.bdurl.net,REJECT-DROP
 
-DOMAIN,tnc3-alisc1.snssdk.com,REJECT
-DOMAIN,tnc3-aliec2.snssdk.com,REJECT
+DOMAIN,activity-ag.awemeughun.com,REJECT-DROP
 
-DOMAIN-KEYWORD,snssdk,REJECT
-DOMAIN-KEYWORD,zijieapi,REJECT
-DOMAIN-KEYWORD,pstatp,REJECT
+# =========================================================
+# 字节广告 / 穿山甲
+# =========================================================
 
-# ==============================
-# 广告点击 / 追踪
-# ==============================
+DOMAIN-KEYWORD,zijieapi,REJECT-DROP
 
-DOMAIN,dig.bdurl.net,REJECT
-DOMAIN-KEYWORD,applog,REJECT
+DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT-DROP
+DOMAIN-SUFFIX,byteorge.com,REJECT-DROP
+DOMAIN-SUFFIX,bytegoofy.com,REJECT-DROP
 
-DOMAIN,activity-ag.awemeughun.com,REJECT
+DOMAIN,sf3-ttcdn-tos.pstatp.com,REJECT-DROP
 
-# ==============================
-# HTTPDNS
-# ==============================
+# =========================================================
+# 番茄相关广告/推荐广告链路
+# =========================================================
 
-DOMAIN-KEYWORD,tnc,REJECT
+DOMAIN-KEYWORD,ad-sign,REJECT-DROP
 
-# ==============================
-# 番茄统计
-# ==============================
+DOMAIN-KEYWORD,pangolin,REJECT-DROP
 
-DOMAIN,mon.toutiaocloud.com,REJECT
-DOMAIN,mon.toutiaocloud.net,REJECT
+DOMAIN-KEYWORD,pstatp,REJECT-DROP
 
-# ==============================
-# 图片 CDN
-# 不要拦 byteimg
-# ==============================
+DOMAIN-KEYWORD,pglstatp,REJECT-DROP
+
+# =========================================================
+# 番茄广告统计
+# =========================================================
+
+DOMAIN,mon.toutiaocloud.com,REJECT-DROP
+DOMAIN,mon.toutiaocloud.net,REJECT-DROP
+
+DOMAIN-KEYWORD,applog,REJECT-DROP
+
+# =========================================================
+# HTTPDNS / 字节配置
+# =========================================================
+
+DOMAIN-KEYWORD,tnc,REJECT-DROP
+
+# =========================================================
+# 其他公开番茄规则中发现的广告接口
+# =========================================================
+
+DOMAIN,v6-novelapp.ixigua.com,REJECT-DROP
+
+DOMAIN,msync-im1-vip6-std.easemob.com,REJECT-DROP
+
+DOMAIN,apd-pcdnwxlogin.teg.tencent-cloud.net,REJECT-DROP
+
+DOMAIN,api.iegadp.qq.com,REJECT-DROP
+
+
+# =========================================================
+# 广告 CDN
+# =========================================================
 
 DOMAIN-SUFFIX,byteimg.com,DIRECT
+
+
+# =========================================================
+# QUIC
+# =========================================================
+
+AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT
+
+
+[URL Rewrite]
+
+# =========================================================
+# 穿山甲广告接口
+# =========================================================
+
+^https?:\/\/.+\.pangolin-sdk-toutiao\.com\/api\/ad\/union\/sdk\/(get_ads|stats|settings)\/.+ reject
+
+^https?:\/\/.+\.pglstatp-toutiao\.com\/.+\/toutiao\.mp4 reject
+
+^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(obj|img)\/(ad-app-package|ad)\/.+ reject
+
+^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(obj|img)\/web\.business\.image\/.+ reject
+
+^https?:\/\/.+\.pstatp\.com\/obj\/mosaic-legacy\/.+\?from=ad reject
+
+^https?:\/\/.+\.pstatp\.com\/bytecom\/resource\/track_log\/src\/.+ reject
+
+^https?:\/\/.+\.snssdk\.com\/video\/play\/1\/toutiao\/.+\/mp4 reject
+
+^https?:\/\/.+\.snssdk\.com\/api\/ad\/.+ reject
+
+^http:\/\/.+\.byteimg\.com\/ad-app-package reject
+
+^http:\/\/.+\.byteimg\.com\/web\.business\.image reject
+
+^https?:\/\/gurd\.snssdk\.com\/src\/server\/v3\/package reject
+
+^https?:\/\/.+\.byteimg\.com\/tos-cn-i-1yzifmftcy\/(.+)-jpeg\.jpeg reject
+
+^https?:\/\/.+?\.snssdk\.com\/motor\/operation\/activity\/display\/config\/V2\/.+ reject
+
+
 [Script]
 
-# 番茄小说 API 响应清理
-http-response ^lhttps?:\/\/(?:[^\/]+\.)?(?:fqnovel|dragonread)\.com\/(?:novel|reading|api|service|v\d+)(?:\/|\?).*$ script-path=https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/fanqie.js, requires-body=true, timeout=30, tag=番茄小说响应清理
+# =========================================================
+# 番茄 Response Body 清理
+# =========================================================
+
+http-response ^https?:\/\/.+\.(fqnovel|dragonread)\.com\/.+ script-path=https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/fanqie.js, requires-body=true, timeout=30, tag=番茄小说Response清理
 
 
 [Mitm]
-hostname = *.fqnovel.com, *.dragonread.com
+
+hostname = *.fqnovel.com, *.dragonread.com, *.pangolin-sdk-toutiao.com, *.pstatp.com, *.pglstatp-toutiao.com, gurd.snssdk.com, *.snssdk.com
