@@ -25,7 +25,7 @@ http:
       content: "{}"
 
   script:
-    - name: Spotify首页净化
+    - name: Spotify去广告
       match: ^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/(?:bootstrap|user-customization-service|home-feed-view|user-attribute)(?:[\/?].*)?$
       type: response
       requires-body: true
