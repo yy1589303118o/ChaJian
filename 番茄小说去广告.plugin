@@ -1,13 +1,11 @@
 [Plugin]
 name = 番茄小说去广告
-desc = 番茄小说 iOS 广告拦截 + 响应清理 + BoxJs 控制
+desc = 番茄小说 iOS 广告拦截 + 响应清理
 author = Fanqie
 
 [Rule]
-# QUIC
-AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT
 
-# 广告 SDK
+# 番茄广告/统计
 DOMAIN-KEYWORD,ad-sign,REJECT
 DOMAIN-KEYWORD,snssdk,REJECT
 DOMAIN-KEYWORD,pstatp,REJECT
@@ -15,15 +13,19 @@ DOMAIN-KEYWORD,gecko,REJECT
 DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT
 DOMAIN,cddp-track.aligames.com,REJECT
 
-# 统计
+# 番茄统计
 DOMAIN,mon.toutiaocloud.com,REJECT
 DOMAIN,mon.toutiaocloud.net,REJECT
 
 # HTTPDNS
 DOMAIN-KEYWORD,tnc,REJECT
 
+
 [Script]
-http-response ^https?:\/\/.*?\.(fqnovel|dragonread)\.com\/(novel|reading|api|v\d+|ad|service)(?:[\/?].*)?$ script-path=https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/fanqie.js, requires-body=true, timeout=15, tag=番茄小说去广告
+
+# 番茄小说 API 响应清理
+http-response ^lhttps?:\/\/(?:[^\/]+\.)?(?:fqnovel|dragonread)\.com\/(?:novel|reading|api|service|v\d+)(?:\/|\?).*$ script-path=https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/fanqie.js, requires-body=true, timeout=30, tag=番茄小说响应清理
+
 
 [Mitm]
 hostname = *.fqnovel.com, *.dragonread.com
