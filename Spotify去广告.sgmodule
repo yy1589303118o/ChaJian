@@ -1,4 +1,4 @@
-#!name=Spotify 去广告｜稳定防变灰
+#!name=Spotify去广告
 #!desc=Spotify 精准去广告 + 首页净化 + iPad ArtistView 修复｜优先保证播放稳定
 #!author=Spotify
 
@@ -15,7 +15,7 @@ DOMAIN-SUFFIX,gads.spotify.com,REJECT
 ^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/(?:ads|ad-logic|pendragon)(?:\/.*)?$ data="{}" status=200
 
 [Script]
-Spotify首页净化 = type=http-response,pattern=^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/(?:bootstrap|user-customization-service|home-feed-view|user-attribute)(?:[\/?].*)?$,requires-body=1,timeout=10,script-path=https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/Spotify_remove_ads_local.js
+Spotify去广告 = type=http-response,pattern=^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/(?:bootstrap|user-customization-service|home-feed-view|user-attribute)(?:[\/?].*)?$,requires-body=1,timeout=10,script-path=https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/Spotify_remove_ads_local.js
 
 [MITM]
 hostname = %APPEND% *.spclient.spotify.com, spclient.wg.spotify.com, ads.spotify.com, gads.spotify.com
