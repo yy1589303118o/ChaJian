@@ -1,33 +1,32 @@
 name: Spotify去广告
-desc: Spotify 精准去广告 + 首页净化 + iPad ArtistView 修复｜优先保证播放稳定
+desc: 移除 Spotify 首页与列表广告
 
-# 1. 规则拦截
-rules:
-  - DOMAIN-SUFFIX,ads.spotify.com,REJECT
-  - DOMAIN-SUFFIX,adstudio.spotify.com,REJECT
-  - DOMAIN-SUFFIX,gads.spotify.com,REJECT
-
-# 2. HTTP 重写、Mock 与脚本响应
 http:
   mitm:
-    - "*.spclient.spotify.com"
     - "spclient.wg.spotify.com"
-    - "ads.spotify.com"
-    - "gads.spotify.com"
+    - "api-partner.spotify.com"
 
   url-rewrite:
-    - ^https?:\/\/(?:ads|adclick|gads)\.spotify\.com(?:\/.*)?$ - reject
-    - ^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/artistview\/v1\/artist\/(.*)&platform=iphone https://spclient.wg.spotify.com/artistview/v1/artist/$1&platform=ipad header
-
-  mock-as-code:
-    - pattern: ^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/(?:ads|ad-logic|pendragon)(?:\/.*)?$
-      code: 200
-      content: "{}"
+    - ^https?:\/\/spclient\.wg\.spotify\.com\/ads\/ - reject
+    - ^https?:\/\/spclient\.wg\.spotify\.com\/ad-logic\/ - reject
 
   script:
-    - name: Spotify去广告
-      match: ^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/(?:bootstrap|user-customization-service|home-feed-view|user-attribute)(?:[\/?].*)?$
+    - match: ^https?:\/\/spclient\.wg\.spotify\.com\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize|customize-v2\/v1\/customize)
+      name: Spotify去广告
       type: response
-      requires-body: true
+      require-body: true
       timeout: 10
-      url: https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/Spotify_remove_ads_local.js
+
+script-providers:
+  Spotify去广告:
+    url: https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/Spotify_remove_ads_local.js
+    interval: 86400
+
+rules:
+  - DOMAIN-KEYWORD,spotify-com-ad,REJECT
+  - DOMAIN-SUFFIX,ads.spotify.com,REJECT
+  - DOMAIN,adeventtracker.spotify.com,REJECT
+  - DOMAIN,ads-fa.spotify.com,REJECT
+  - DOMAIN,analytics.spotify.com,REJECT
+  - DOMAIN,crashdump.spotify.com,REJECT
+  - DOMAIN,log.spotify.com,REJECT
