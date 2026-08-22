@@ -1,147 +1,119 @@
-#!name=fenliu
-#!desc=我的自用分流
+# 名称: fenliu
+# 描述: 我的自用分流
 
-[Rule]
-# 在这里开始添加你的规则（把下面的 # 删掉即可生效）
+payload:
+  # ------------------> A <------------------
+  # anime7.top动漫网站
+  - DOMAIN,union.maccms.la
+  - DOMAIN,vip.dytt-cine.com
+  - DOMAIN,union.dplayerstatic.com
+  - DOMAIN,vip.dytt-cinema.com
+  - DOMAIN,ani7.b-cdn.net
+  - DOMAIN,anime7.top
+  # anti-ad
+  - DOMAIN-KEYWORD,anti-ad.net
+  # Alibaba
+  - DOMAIN,log.mmstat.com
+  - DOMAIN,sycm.mmstat.com
+  # 爱影视
+  - DOMAIN,static.jssp.tv
+  - DOMAIN,lain.bgm.tv
+  - DOMAIN,tiao.cjkypo.com
+  - DOMAIN,ok.zuidapic.com
+  - DOMAIN,ts.thefilehosting.com
+  - DOMAIN,deo.shopeemobile.com
+  - DOMAIN,m3u8.255tv.tk
+  - DOMAIN,m3u8.mstopq.com
+  - DOMAIN,ain.bgm.tv
+  - DOMAIN-KEYWORD,vip.lz-cdn
+  - DOMAIN-KEYWORD,ax1x.com
+  - DOMAIN-KEYWORD,o.lencr.org
+  - DOMAIN-KEYWORD,ttcdn-tos.kkimg.cc
 
-# 直连
-#------------------>A<------------------
-#anime7.top动漫网站
-DOMAIN,union.maccms.la,DIRECT
-DOMAIN,vip.dytt-cine.com,DIRECT
-DOMAIN,union.dplayerstatic.com,DIRECT
-DOMAIN,vip.dytt-cinema.com,DIRECT
-DOMAIN,ani7.b-cdn.net,DIRECT
-DOMAIN,anime7.top,DIRECT
-#anti-ad
-DOMAIN-KEYWORD,anti-ad.net,DIRECT
-#Alibaba
-DOMAIN,log.mmstat.com,DIRECT
-DOMAIN,sycm.mmstat.com,DIRECT
-#爱影视
-DOMAIN,static.jssp.tv,DIRECT
-DOMAIN,lain.bgm.tv,DIRECT
-DOMAIN,tiao.cjkypo.com,DIRECT
-DOMAIN,ok.zuidapic.com,DIRECT
-DOMAIN,ts.thefilehosting.com,DIRECT
-DOMAIN,deo.shopeemobile.com,DIRECT
-DOMAIN,m3u8.255tv.tk,DIRECT
-DOMAIN,m3u8.mstopq.com,DIRECT
-DOMAIN,ain.bgm.tv, DIRECT
-DOMAIN-KEYWORD,vip.lz-cdn,DIRECT
-DOMAIN-KEYWORD,ax1x.com,DIRECT
-DOMAIN-KEYWORD,o.lencr.org,DIRECT
-DOMAIN-KEYWORD,ttcdn-tos.kkimg.cc,DIRECT
+  # ------------------> C <------------------
+  # cycani.org动漫网站
+  - DOMAIN-SUFFIX,cycani.org
 
-#------------------>C<------------------
-#cycani.org动漫网站
-DOMAIN-SUFFIX,cycani.org,DIRECT
+  # ------------------> D <------------------
+  # 大师兄影视
+  - DOMAIN,sdk.alibaba.com.ailbaba.me
+  - DOMAIN,img.ffzypic.com
+  - DOMAIN,img.liangzipic.com
+  - DOMAIN,img.bfzypic.com
+  - DOMAIN,img.kuaikanzy.net
+  - DOMAIN,vip.imgffzy.com
+  - DOMAIN,vip.ffzyread.com
+  - DOMAIN,cdn.jsdelivr.net
+  - DOMAIN,image.maimn.com
+  - DOMAIN-KEYWORD,bfzycdn.com
+  - DOMAIN-KEYWORD,vip.kuaikan-cdn
+  - DOMAIN-KEYWORD,vip.ffzy-play
+  - DOMAIN-KEYWORD,vip.ffzy-online
+  # 搜书网
+  - DOMAIN,dq3s.b4e5w4dqwde.com
 
-#------------------>D<------------------
-#大师兄影视
-DOMAIN,sdk.alibaba.com.ailbaba.me, DIRECT
-DOMAIN, img.ffzypic.com, DIRECT
-DOMAIN, img.liangzipic.com, DIRECT
-DOMAIN, img.bfzypic.com, DIRECT
-DOMAIN, img.kuaikanzy.net, DIRECT
-DOMAIN, vip.imgffzy.com, DIRECT
-DOMAIN, vip.ffzyread.com, DIRECT
-DOMAIN, cdn.jsdelivr.net, DIRECT
-DOMAIN, image.maimn.com, DIRECT
-DOMAIN-KEYWORD, bfzycdn.com, DIRECT
-DOMAIN-KEYWORD, vip.kuaikan-cdn, DIRECT
-DOMAIN-KEYWORD, vip.ffzy-play, DIRECT
-DOMAIN-KEYWORD, vip.ffzy-online, DIRECT
+  # ------------------> G <------------------
+  # Google
+  - DOMAIN-KEYWORD,download.google
 
-#搜书网
-DOMAIN,dq3s.b4e5w4dqwde.com,DIRECT
+  # ------------------> J <------------------
+  # 中国建设银行
+  - DOMAIN,imageadv.ccb.com
 
-#------------------>F<------------------
+  # ------------------> M <------------------
+  # 美团
+  - DOMAIN,maplocatesdksnapshot.dreport.meituan.net
 
+  # ------------------> P <------------------
+  # 苹果推送服务
+  - DOMAIN-KEYWORD,push.apple.com
+  # 苹果时间同步
+  - DOMAIN,time.apple.com
+  # 苹果天气服务
+  - DOMAIN-KEYWORD,weather-edge.apple.com
+  - DOMAIN-KEYWORD,weather-adge.apple.com
+  - DOMAIN-SUFFIX,weather-data.apple.com
+  - DOMAIN-SUFFIX,weather-map.apple.com
+  - DOMAIN-SUFFIX,weather-analytics-events.apple.com
+  # 苹果内购服务
+  - DOMAIN-KEYWORD,buy.itunes.apple.com
+  # 苹果icloud
+  - DOMAIN-KEYWORD,icloud.com
+  # 苹果输入法相关服务
+  - DOMAIN-KEYWORD,api.smoot.apple
+  # 苹果iMessage服务
+  - DOMAIN,init.ess.apple.com
+  # 苹果其他服务
+  - DOMAIN-KEYWORD,ssl.apple.com
+  - DOMAIN-KEYWORD,humb.apple.com
+  - DOMAIN,smp-device-content.apple.com
+  - DOMAIN-KEYWORD,ls.apple.com
+  - DOMAIN-KEYWORD,gsa.apple.com
+  - DOMAIN-KEYWORD,ess.apple.com
+  # 苹果appstore
+  - DOMAIN,itunes.apple.com
 
-#------------------>G<------------------
-#Google
-DOMAIN-KEYWORD,download.google,DIRECT
+  # ------------------> Q <------------------
+  # QQ空间
+  - DOMAIN-KEYWORD,ctc.qzs.qzone.qq.com
 
-#------------------>J<------------------
-#中国建设银行
-DOMAIN,imageadv.ccb.com,DIRECT
+  # ------------------> S <------------------
+  # Strava
+  - DOMAIN,analytics.strava.com
 
-#------------------>M<------------------
-#美团
-DOMAIN, maplocatesdksnapshot.dreport.meituan.net, DIRECT
+  # ------------------> T <------------------
+  # Tencent
+  - DOMAIN,fairplay.l.qq.com
+  - DOMAIN,livew.l.qq.com
+  - DOMAIN,vd.l.qq.com
+  - DOMAIN,vi.l.qq.com
 
-#------------------>P<------------------
-#苹果推送服务
-DOMAIN-KEYWORD, push.apple.com, DIRECT
-#苹果时间同步
-DOMAIN, time.apple.com, DIRECT
-#苹果天气服务
-DOMAIN-KEYWORD, weather-edge.apple.com, DIRECT
-DOMAIN-KEYWORD, weather-adge.apple.com, DIRECT
-DOMAIN-SUFFIX, weather-data.apple.com, DIRECT
-DOMAIN-SUFFIX, weather-map.apple.com, DIRECT
-DOMAIN-SUFFIX, weather-analytics-events.apple.com, DIRECT
-#苹果内购服务
-DOMAIN-KEYWORD, buy.itunes.apple.com, DIRECT
-#苹果icloud
-DOMAIN-KEYWORD, icloud.com, DIRECT
-#苹果输入法相关服务
-DOMAIN-KEYWORD, api.smoot.apple, DIRECT
-#苹果iMessage服务
-DOMAIN, init.ess.apple.com, DIRECT
-#苹果其他服务
-DOMAIN-KEYWORD, ssl.apple.com, DIRECT
-DOMAIN-KEYWORD, humb.apple.com, DIRECT
-DOMAIN, smp-device-content.apple.com, DIRECT
-DOMAIN-KEYWORD, ls.apple.com, DIRECT
-DOMAIN-KEYWORD, gsa.apple.com, DIRECT
-DOMAIN-KEYWORD, ess.apple.com, DIRECT
-#苹果appstore
-DOMAIN, itunes.apple.com, DIRECT
+  # ------------------> U <------------------
+  # Umeng
+  - DOMAIN,msg.umeng.com
+  - DOMAIN,msg.umengcloud.com
 
-#------------------>Q<------------------
-#QQ空间
-DOMAIN-KEYWORD, ctc.qzs.qzone.qq.com, DIRECT
-
-
-#------------------>S<------------------
-#Strava
-DOMAIN, analytics.strava.com, DIRECT
-
-#------------------>T<------------------
-#Tencent
-DOMAIN, fairplay.l.qq.com, DIRECT
-DOMAIN, livew.l.qq.com, DIRECT
-DOMAIN, vd.l.qq.com, DIRECT
-DOMAIN, vi.l.qq.com, DIRECT
-
-#------------------>U<------------------
-#Umeng
-DOMAIN, msg.umeng.com, DIRECT
-DOMAIN, msg.umengcloud.com, DIRECT
-
-#------------------>X<------------------
-#携程
-DOMAIN-KEYWORD, aw-s.tripcdn.com, DIRECT
-DOMAIN-SUFFIX, trip.com, DIRECT
-
-
-# 代理
-# DOMAIN-SUFFIX, 网址, PROXY
-
-#------------------>A<------------------
-#
-
-
-# 拦截广告
-# DOMAIN-SUFFIX, 网址, REJECT-DROP
-
-#------------------>A<------------------
-#
-
-# 让某个IP段走代理
-# IP-CIDR, 1.2.3.0/24, PROXY, no-resolve
-
-#------------------>A<------------------
-#
+  # ------------------> X <------------------
+  # 携程
+  - DOMAIN-KEYWORD,aw-s.tripcdn.com
+  - DOMAIN-SUFFIX,trip.com
