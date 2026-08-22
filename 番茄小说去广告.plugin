@@ -5,22 +5,61 @@ author = Fanqie
 
 [Rule]
 
-# 番茄广告/统计
-DOMAIN-KEYWORD,ad-sign,REJECT
-DOMAIN-KEYWORD,snssdk,REJECT
-DOMAIN-KEYWORD,pstatp,REJECT
-DOMAIN-KEYWORD,gecko,REJECT
-DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT
-DOMAIN,cddp-track.aligames.com,REJECT
+# ==============================
+# 番茄广告投放
+# ==============================
 
+DOMAIN,p6-ad-sign.byteimg.com,REJECT
+DOMAIN,p9-ad-sign.byteimg.com,REJECT
+
+DOMAIN-KEYWORD,ad-sign,REJECT
+
+# ==============================
+# 字节广告 / SDK
+# ==============================
+
+DOMAIN,i.snssdk.com,REJECT
+DOMAIN,i-lq.snssdk.com,REJECT
+DOMAIN,is.snssdk.com,REJECT
+
+DOMAIN,mcs.snssdk.com,REJECT
+DOMAIN,security-lq.snssdk.com,REJECT
+
+DOMAIN,tnc3-alisc1.snssdk.com,REJECT
+DOMAIN,tnc3-aliec2.snssdk.com,REJECT
+
+DOMAIN-KEYWORD,snssdk,REJECT
+DOMAIN-KEYWORD,zijieapi,REJECT
+DOMAIN-KEYWORD,pstatp,REJECT
+
+# ==============================
+# 广告点击 / 追踪
+# ==============================
+
+DOMAIN,dig.bdurl.net,REJECT
+DOMAIN-KEYWORD,applog,REJECT
+
+DOMAIN,activity-ag.awemeughun.com,REJECT
+
+# ==============================
+# HTTPDNS
+# ==============================
+
+DOMAIN-KEYWORD,tnc,REJECT
+
+# ==============================
 # 番茄统计
+# ==============================
+
 DOMAIN,mon.toutiaocloud.com,REJECT
 DOMAIN,mon.toutiaocloud.net,REJECT
 
-# HTTPDNS
-DOMAIN-KEYWORD,tnc,REJECT
+# ==============================
+# 图片 CDN
+# 不要拦 byteimg
+# ==============================
 
-
+DOMAIN-SUFFIX,byteimg.com,DIRECT
 [Script]
 
 # 番茄小说 API 响应清理
