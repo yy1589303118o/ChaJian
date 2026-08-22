@@ -1,13 +1,8 @@
-#!name=我的自用分流
-#!desc=手动添加规则的框架
+#!name=fenliu
+#!desc=我的自用分流
 
 [Rule]
 # 在这里开始添加你的规则（把下面的 # 删掉即可生效）
-# 代理
-# DOMAIN-SUFFIX, 网址, PROXY
-
-#------------------>A<------------------
-#
 
 # 直连
 #------------------>A<------------------
@@ -131,7 +126,14 @@ DOMAIN, msg.umengcloud.com, DIRECT
 DOMAIN-KEYWORD, aw-s.tripcdn.com, DIRECT
 DOMAIN-SUFFIX, trip.com, DIRECT
 
-# 拦截特定广告域名
+ 代理
+# DOMAIN-SUFFIX, 网址, PROXY
+
+#------------------>A<------------------
+#
+
+
+# 拦截广告
 # DOMAIN-SUFFIX, 网址, REJECT-DROP
 
 #------------------>A<------------------
