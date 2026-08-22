@@ -128,4 +128,4 @@ http-response ^https?:\/\/.+\.(fqnovel|dragonread)\.com\/(?:novel|reading|api|v\
 
 [Mitm]
 
-hostname = *.fqnovel.com, *.dragonread.com, *.fqnovelvod.com, *.pangolin-sdk-toutiao.com, *.pstatp.com, *.pglstatp-toutiao.com, *.snssdk.com, *.byteimg.com
+hostname = *.fqnovel.com, *.dragonread.com, *.pangolin-sdk-toutiao.com, *.pstatp.com, *.pglstatp-toutiao.com, *.snssdk.com, *.byteimg.com
