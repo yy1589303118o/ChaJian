@@ -16,7 +16,7 @@ DOMAIN-SUFFIX,gads.spotify.com,REJECT
 ^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/(?:ads|ad-logic|pendragon)(?:\/.*)?$ data="{}" status=200
 
 [Script]
-http-response ^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/(?:bootstrap|user-customization-service|home-feed-view|user-attribute)(?:[\/?].*)?$ script-path=https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/Spotify_remove_ads_local.js, requires-body=true, timeout=10, tag=Spotify首页净化
+http-response ^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/(?:bootstrap|user-customization-service|home-feed-view|user-attribute)(?:[\/?].*)?$ script-path=https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/Spotify_remove_ads_local.js, requires-body=true, timeout=10, tag=Spotify去广告
 
 [Mitm]
 hostname = *.spclient.spotify.com, spclient.wg.spotify.com, ads.spotify.com, gads.spotify.com
