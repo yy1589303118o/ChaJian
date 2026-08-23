@@ -9,7 +9,7 @@ DOMAIN-SUFFIX,ads.spotify.com,REJECT
 DOMAIN-SUFFIX,adstudio.spotify.com,REJECT
 DOMAIN-SUFFIX,gads.spotify.com,REJECT
 
-[Rewrite]
+[URL Rewrite]
 ^https?:\/\/(?:ads|adclick|gads)\.spotify\.com(?:\/.*)?$ reject
 ^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/artistview\/v1\/artist\/(.*)&platform=iphone https://spclient.wg.spotify.com/artistview/v1/artist/$1&platform=ipad header
 ^https?:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/(?:ads|ad-logic|pendragon)(?:\/.*)?$ reject-dict
