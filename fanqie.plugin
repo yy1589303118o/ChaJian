@@ -30,6 +30,10 @@ DOMAIN-SUFFIX,byteorge.com,REJECT
 DOMAIN-SUFFIX,bytegoofy.com,REJECT
 DOMAIN,sf3-ttcdn-tos.pstatp.com,REJECT
 
+# 字节广告图片 CDN（新增）
+DOMAIN-SUFFIX,luckycat.byteimg.com,REJECT
+DOMAIN-KEYWORD,luckycat,REJECT
+
 # 番茄广告视频
 DOMAIN-SUFFIX,fqnovelvod.com,REJECT
 
