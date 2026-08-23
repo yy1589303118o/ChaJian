@@ -5,7 +5,7 @@
 [Rule]
 
 # 放行听书音频流（TTS）
-DOMAIN-KEYWORD,-tts.fqnovelvod.com,DIRECT
+DOMAIN-KEYWORD,tts.fqnovelvod.com,DIRECT
 
 # =========================
 # 1. 番茄 / 字节广告核心域名
