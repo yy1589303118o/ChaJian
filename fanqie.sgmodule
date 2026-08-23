@@ -59,12 +59,6 @@ DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,REJECT
 DOMAIN-KEYWORD,ad-sign,REJECT
 DOMAIN-KEYWORD,ad-app,REJECT
 
-# =========================
-# 6. QUIC
-# =========================
-
-AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT
-
 [URL Rewrite]
 
 # Pangolin 广告接口
