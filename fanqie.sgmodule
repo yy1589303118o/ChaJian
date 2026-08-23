@@ -11,11 +11,18 @@ DOMAIN,is.snssdk.com,DIRECT
 DOMAIN,mcs.snssdk.com,DIRECT
 DOMAIN-SUFFIX,fqnovelvod.com,REJECT
 DOMAIN-SUFFIX,dragonread.com,DIRECT
+DOMAIN-SUFFIX,ecombdimg.com,REJECT
+DOMAIN,p3-aio.ecombdimg.com,REJECT
+DOMAIN,p26-item.ecombdimg.com,REJECT
+DOMAIN-KEYWORD,magic.byteimg,REJECT
+DOMAIN-SUFFIX,douyinpic.com,REJECT
 DOMAIN,p6-ad-sign.byteimg.com,REJECT
 DOMAIN,p9-ad-sign.byteimg.com,REJECT
 DOMAIN,dig.bdurl.net,REJECT
 DOMAIN-KEYWORD,zijieapi,REJECT
 DOMAIN-KEYWORD,applog,REJECT
+DOMAIN-SUFFIX,luckycat.byteimg.com,REJECT
+DOMAIN-KEYWORD,luckycat,REJECT
 DOMAIN,activity-ag.awemeughun.com,REJECT
 DOMAIN,tnc3-alisc1.snssdk.com,REJECT
 DOMAIN,tnc3-aliec2.snssdk.com,REJECT
@@ -24,12 +31,9 @@ DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT
 DOMAIN-SUFFIX,byteorge.com,REJECT
 DOMAIN-SUFFIX,bytegoofy.com,REJECT
 DOMAIN,sf3-ttcdn-tos.pstatp.com,REJECT
-DOMAIN-SUFFIX,luckycat.byteimg.com,REJECT
-DOMAIN-KEYWORD,luckycat,REJEJET
 DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,REJECT
 DOMAIN-KEYWORD,ad-sign,REJECT
 DOMAIN-KEYWORD,ad-app,REJECT
-
 
 [URL Rewrite]
 
