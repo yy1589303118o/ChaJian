@@ -37,9 +37,6 @@ rules:
   - DOMAIN-KEYWORD,ad-sign,REJECT
   - DOMAIN-KEYWORD,ad-app,REJECT
 
-  # 6. 拦截 QUIC（UDP 443）
-  - AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT
-
 http:
   mitm:
     - "*.fqnovel.com"
