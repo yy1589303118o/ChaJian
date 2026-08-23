@@ -19,7 +19,6 @@ rules:
   - DOMAIN,p3-aio.ecombdimg.com,REJECT
   - DOMAIN,p26-item.ecombdimg.com,REJECT
   - DOMAIN-KEYWORD,magic.byteimg,REJECT
-  - DOMAIN-SUFFIX,douyinpic.com,REJECT
   - DOMAIN,p6-ad-sign.byteimg.com,REJECT
   - DOMAIN,p9-ad-sign.byteimg.com,REJECT
   - DOMAIN,dig.bdurl.net,REJECT
