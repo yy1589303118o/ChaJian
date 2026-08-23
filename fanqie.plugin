@@ -1,0 +1,44 @@
+#!name = 番茄小说去广告
+#!desc = 仅通过规则拦截广告域名
+#!author = Fanqie / Custom
+#!loon_version = 3.5.0(975)
+#!tag = 番茄小说,去广告
+
+[Rule]
+
+DOMAIN-KEYWORD,tts,DIRECT
+DOMAIN,i.snssdk.com,DIRECT
+DOMAIN,i-lq.snssdk.com,DIRECT
+DOMAIN,is.snssdk.com,DIRECT
+DOMAIN,mcs.snssdk.com,DIRECT
+DOMAIN-SUFFIX,fqnovelvod.com,REJECT
+DOMAIN-SUFFIX,dragonread.com,DIRECT
+DOMAIN,p6-ad-sign.byteimg.com,REJECT
+DOMAIN,p9-ad-sign.byteimg.com,REJECT
+DOMAIN,dig.bdurl.net,REJECT
+DOMAIN-KEYWORD,zijieapi,REJECT
+DOMAIN-KEYWORD,applog,REJECT
+DOMAIN,activity-ag.awemeughun.com,REJECT
+DOMAIN,tnc3-alisc1.snssdk.com,REJECT
+DOMAIN,tnc3-aliec2.snssdk.com,REJECT
+DOMAIN,security-lq.snssdk.com,REJECT
+DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT
+DOMAIN-SUFFIX,byteorge.com,REJECT
+DOMAIN-SUFFIX,bytegoofy.com,REJECT
+DOMAIN,sf3-ttcdn-tos.pstatp.com,REJECT
+DOMAIN-SUFFIX,luckycat.byteimg.com,REJECT
+DOMAIN-KEYWORD,luckycat,REJEJET
+DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,REJECT
+DOMAIN-KEYWORD,ad-sign,REJECT
+DOMAIN-KEYWORD,ad-app,REJECT
+
+[Rewrite]
+
+# Pangolin 广告接口
+^https?:\/\/.+\.pangolin-sdk-toutiao\.com\/api\/ad\/union\/sdk\/(get_ads|stats|settings)\/ reject
+
+# 广告图片 / 广告包
+^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(obj|img)\/(ad-app-package|ad)\/.+ reject
+
+# snssdk 广告 API
+^https?:\/\/.+\.snssdk\.com\/api\/ad\/.+ reject
