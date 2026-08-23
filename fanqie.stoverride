@@ -42,7 +42,7 @@ script-providers:
     interval: 86400
 
 rules:
-  - DOMAIN-SUFFIX,tts.fqnovelvod.com,DIRECT
+  - DOMAIN-KEYWORD,tts,DIRECT
   - DOMAIN,p6-ad-sign.byteimg.com,REJECT
   - DOMAIN,p9-ad-sign.byteimg.com,REJECT
   - DOMAIN,i.snssdk.com,REJECT
@@ -52,6 +52,8 @@ rules:
   - DOMAIN,dig.bdurl.net,REJECT
   - DOMAIN-KEYWORD,zijieapi,REJECT
   - DOMAIN-KEYWORD,applog,REJECT
+  - DOMAIN-SUFFIX,luckycat.byteimg.com,REJECT
+  - DOMAIN-KEYWORD,luckycat,REJECT
   - DOMAIN,activity-ag.awemeughun.com,REJECT
   - DOMAIN,tnc3-alisc1.snssdk.com,REJECT
   - DOMAIN,tnc3-aliec2.snssdk.com,REJECT
