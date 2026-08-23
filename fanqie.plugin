@@ -7,7 +7,7 @@
 [Rule]
 
 # 听书 
-DOMAIN-KEYWORD,tts.fqnovelvod.com,DIRECT
+DOMAIN-SUFFIX,tts.fqnovelvod.com,DIRECT
 
 # 番茄 / 字节广告核心域名
 DOMAIN,p6-ad-sign.byteimg.com,REJECT
