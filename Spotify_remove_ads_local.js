@@ -1,8 +1,6 @@
 /*
  * Spotify_remove_ads_local.js
  *
- * Shadowrocket 2.2.90+
- *
  * Spotify 响应净化
  *
  * 设计原则：
