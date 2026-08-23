@@ -76,6 +76,6 @@ http:
 
 # 远程脚本提供者
 script-providers:
-  番茄小说去广告:
+   番茄小说去广告:
     url: https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/fanqie.js
     interval: 86400
