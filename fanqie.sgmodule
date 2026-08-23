@@ -4,11 +4,11 @@
 
 [Rule]
 
-# 放行听书音频流（TTS）
-DOMAIN-SUFFIX,tts.fqnovelvod.com,DIRECT
+# 听书（匹配所有含 tts 的域名）
+DOMAIN-KEYWORD,tts,DIRECT
 
 # =========================
-# 1. 番茄 / 字节广告核心域名
+#  番茄 / 字节广告核心域名
 # =========================
 
 DOMAIN,p6-ad-sign.byteimg.com,REJECT
@@ -31,7 +31,7 @@ DOMAIN,tnc3-aliec2.snssdk.com,REJECT
 DOMAIN,security-lq.snssdk.com,REJECT
 
 # =========================
-# 2. 字节广告资源
+#  字节广告资源
 # =========================
 
 DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT
@@ -41,19 +41,26 @@ DOMAIN-SUFFIX,bytegoofy.com,REJECT
 DOMAIN,sf3-ttcdn-tos.pstatp.com,REJECT
 
 # =========================
-# 3. 番茄广告视频
+#  字节广告图片 CDN（新增）
+# =========================
+
+DOMAIN-SUFFIX,luckycat.byteimg.com,REJECT
+DOMAIN-KEYWORD,luckycat,REJECT
+
+# =========================
+#  番茄广告视频
 # =========================
 
 DOMAIN-SUFFIX,fqnovelvod.com,REJECT
 
 # =========================
-# 4. Pangolin 广告 SDK
+#  Pangolin 广告 SDK
 # =========================
 
 DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,REJECT
 
 # =========================
-# 5. 番茄相关广告接口
+#  番茄相关广告接口
 # =========================
 
 DOMAIN-KEYWORD,ad-sign,REJECT
