@@ -72,13 +72,13 @@ http:
   # 脚本配置
   script:
     - match: ^https?:\/\/.+\.(fqnovel|dragonread)\.com\/(?:novel|reading|api|v\d+|ad|service)(?:[\/?].*)?$
-      name: fanqie_no_ad
+      name: 番茄小说去广告
       type: response
       require-body: true
       timeout: 15
 
 # 远程脚本提供者
 script-providers:
-  fanqie_no_ad:
+  番茄小说去广告:
     url: https://raw.githubusercontent.com/yy1589303118o/ChaJian/refs/heads/main/fanqie.js
     interval: 86400
