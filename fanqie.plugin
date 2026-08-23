@@ -6,8 +6,8 @@
 
 [Rule]
 
-# 听书 TTS：保留你的特殊规则，不修改
-DOMAIN-KEYWORD,-tts.fqnovelvod.com,DIRECT
+# 听书 
+DOMAIN-KEYWORD,tts.fqnovelvod.com,DIRECT
 
 # 番茄 / 字节广告核心域名
 DOMAIN,p6-ad-sign.byteimg.com,REJECT
