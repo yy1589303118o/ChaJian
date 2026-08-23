@@ -42,7 +42,7 @@ script-providers:
     interval: 86400
 
 rules:
-  - DOMAIN-KEYWORD,-tts.fqnovelvod.com,DIRECT
+  - DOMAIN-SUFFIX,tts.fqnovelvod.com,DIRECT
   - DOMAIN,p6-ad-sign.byteimg.com,REJECT
   - DOMAIN,p9-ad-sign.byteimg.com,REJECT
   - DOMAIN,i.snssdk.com,REJECT
