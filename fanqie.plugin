@@ -1,16 +1,16 @@
 #!name = 番茄小说去广告
 #!desc = 仅通过规则拦截广告域名
 #!author = Fanqie / Custom
-#!version = 1.1
+#!version = 1.0
 
 [Rule]
 DOMAIN-KEYWORD,tts,DIRECT
-DOMAIN,i.snssdk.com,DIRECT
-DOMAIN,i-lq.snssdk.com,DIRECT
-DOMAIN,is.snssdk.com,DIRECT
-DOMAIN,mcs.snssdk.com,DIRECT
+DOMAIN,i.snssdk.com,REJECT
+DOMAIN,i-lq.snssdk.com,REJECT
+DOMAIN,is.snssdk.com,REJECT
+DOMAIN,mcs.snssdk.com,REJECT
 DOMAIN-SUFFIX,fqnovelvod.com,REJECT
-DOMAIN-SUFFIX,dragonread.com,DIRECT
+DOMAIN-SUFFIX,dragonread.com,REJECT
 DOMAIN-SUFFIX,ecombdimg.com,REJECT
 DOMAIN,p3-aio.ecombdimg.com,REJECT
 DOMAIN,p26-item.ecombdimg.com,REJECT
